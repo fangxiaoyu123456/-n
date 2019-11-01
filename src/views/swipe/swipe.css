@@ -1,0 +1,17 @@
+.swipe{
+    width: 6.4rem;
+	height: 3rem;
+}
+.ant-carousel .slick-slide {
+    text-align: center;
+    height: 3rem!important;
+    line-height: 3rem!important;
+    overflow: hidden;
+  }
+.ant-carousel .slick-slide h3 {
+    color: #fff;
+}
+.ant-carousel img{
+    width: 6.4rem;
+	height: 3rem;
+}

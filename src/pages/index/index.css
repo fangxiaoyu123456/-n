@@ -1,0 +1,123 @@
+.header {
+    width: 6.4rem;
+    height: 0.88rem;
+    background-color: #007af4;
+    text-align: center;
+}
+.header>h2 {
+    font-size: 0.34rem;
+    line-height: 0.88rem;
+    letter-spacing: 0.03rem;
+    color: #ffffff;
+}
+.top{
+    margin:0.15rem 0.15rem 0.12rem 0.11rem
+}
+.top .input1{
+    width: 4.62rem!important;
+	height: 0.58rem!important;
+}
+.btn1{
+    margin-left: 0.1rem;
+    width: 1.42rem;
+	height: 0.53rem;
+	background-color: #007af4;
+	border-radius: 0.05rem;
+}
+
+.weather{
+    width: 6.4rem;
+	height: 0.98rem;
+	background-color: #f5f5f5;
+    border: solid 0.01rem #dedede;
+    display: flex;
+    margin-bottom: .04rem;
+}
+.weather .left1{
+    width: 1.14rem;
+    height: 0.96rem;
+    font-size: 0.54rem;
+    text-align: center;
+    color:blue;
+}
+.weather .right1{
+    flex: 1;
+}
+.p_one{
+    display: flex;
+    margin-top: .2rem;
+    margin-bottom: .05rem;
+}
+.p_one .p_one1{
+    text-align: left;
+    display: inline-block;
+    width: 2rem;
+    font-size: 0.24rem;
+    color: #666666;
+    height: .3rem;
+    line-height: .3rem;
+}
+.p_one .p_one2{
+    text-align: right;
+    display: inline-block;
+    flex: 1;
+    margin-right: 0.24rem;
+    font-size: 0.2rem;
+    line-height: 0.3rem;
+    color: #797979;
+    height: .3rem;
+    line-height: .3rem;
+}
+.p_two{
+    display: flex;
+}
+.p_two .p_two1{
+    text-align: left;
+    display: inline-block;
+    width: 2rem;
+    font-size: 0.2rem;
+    color: #666666;
+    height: .3rem;
+    line-height: .3rem;
+}
+.p_two .p_two2{
+    text-align: right;
+    display: inline-block;
+    flex: 1;
+    margin-right: 0.31rem;
+    font-size: 0.24rem;
+    line-height: 0.3rem;
+    color: #797979;
+    height: .3rem;
+    line-height: .3rem;
+}
+.nav_box>ul{
+    margin-right: -2.14rem;
+}
+.nav_box>ul>li{
+    width: 2.14rem;
+    height: 1.78rem;
+    border-bottom: 1px solid #dedede;
+    border-right: 1px solid #dedede;
+    float: left;
+    position: relative;
+}
+.nav_box>ul>li>h5{
+    width: 1.13rem;
+	height: 0.24rem;
+	font-family: MicrosoftYaHei;
+	font-size: 0.24rem;
+	line-height: 0.3rem;
+	letter-spacing: 0.02rem;
+    color: #333333;
+    position: absolute;
+    left: .45rem;
+    top: 1.4rem;
+    text-align: center;
+}
+.nav_box>ul>li>img{
+    width: 1.04rem;
+    height: 1.04rem;
+    margin-left: 0.44rem;
+    margin-top: 0.26rem;
+}
