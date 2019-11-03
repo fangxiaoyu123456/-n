@@ -32,6 +32,9 @@ class Blog extends Component {
     jiazhen(){
         this.props.history.push('/home')
     }
+    songshui(){
+        this.props.history.push('/water')
+    }
     render() {
         return (
             <div>
@@ -81,7 +84,7 @@ class Blog extends Component {
                             <img src={one} alt=""/>
                             <h5>找家教</h5>
                         </li>
-                        <li>
+                        <li onClick={()=>this.songshui()}>
                             <img src={two} alt=""/>
                             <h5>送水到家</h5>
                         </li>
