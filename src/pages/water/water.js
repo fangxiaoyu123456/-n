@@ -3,6 +3,7 @@ import { Icon, Rate } from 'antd'
 import './water.styl'
 import watertitle from '../../common/img/water.png'
 import API from '../../common/js/api'
+import Back from '../../views/back/back'
 class Blog extends Component {
     state = {
         water: []
@@ -24,7 +25,7 @@ class Blog extends Component {
         return (
             <div>
                 <div className="header">
-                    <Icon type="left" className="left" />
+                    <Back></Back>
                     <h2>送水到家</h2>
                 </div>
                 <div className="water_title">

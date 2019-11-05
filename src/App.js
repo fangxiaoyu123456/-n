@@ -8,7 +8,12 @@ import Home from './pages/home/home'
 import HomeDetail from './pages/homeDetail/homeDetail'
 import Water from './pages/water/water'
 import WaterDetail from './pages/waterDetail/waterDetail'
-
+import WaterComment from './pages/waterComment/waterComment'
+import Repair from './pages/repair/repair'
+import RepairDetail from './pages/repairdetail/repairdetail'
+import Repaircomment from './pages/repairComment/repairComment'
+import Homecom from './pages/homecom/homecom'
+import ChangePass from './pages/changePass/changePass'
 class Blog extends Component {
     
     render() {
@@ -22,6 +27,13 @@ class Blog extends Component {
                 <Route path="/homedetail" component={HomeDetail}></Route>
                 <Route path="/water" component={Water}></Route>
                 <Route path="/waterdetail/:id" component={WaterDetail}></Route>
+                <Route path="/watercomment" component={WaterComment}></Route>
+                <Route path="/repair" component={Repair}></Route>
+                <Route path="/repairdetail/:id" component={RepairDetail}></Route>
+                <Route path="/repaircomment" component={Repaircomment}></Route>
+                <Route path="/homecom/:id" component={Homecom}></Route>
+                <Route path="/changepass" component={ChangePass}></Route>
+                <Redirect to="/index" ></Redirect>
             </Switch>
         )
     }

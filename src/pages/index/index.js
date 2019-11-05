@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './index.css'
-import { Input, Button, Icon } from 'antd';
+import { Input, Button, Icon, Radio, Drawer } from 'antd';
 import API from '../../common/js/api'
 import Swipe from '../../views/swipe/swipe'
 import one from '../../common/img/1.jpg'
@@ -9,10 +9,14 @@ import three from '../../common/img/3.jpg'
 import four from '../../common/img/4.jpg'
 import five from '../../common/img/5.jpg'
 import six from '../../common/img/6.jpg'
+const RadioGroup = Radio.Group;
 const { Search } = Input;
 class Blog extends Component {
     state = {
-        banner: []
+        banner: [],
+        city: "",
+        visible: false,
+        placement: 'left'
     }
     componentDidMount() {
         //轮播图数据
@@ -22,32 +26,74 @@ class Blog extends Component {
             console.log(res)
             // this.state.banner = res.data.data
             this.setState({
-                banner:res.data.data
+                banner: res.data.data
             })
         })
+        var BMap = window.BMap
+        var myCity = new BMap.LocalCity();
+        myCity.get(result => {
+            console.log(result.name)  //城市名称
+            // let city=this.state.city;
+            // city=result.name
+            this.setState({
+                city: result.name
+            })
+        });
     }
-    zhaojiajiao(){
+    changpass(){
+        this.props.history.push('/changepass')
+    }
+    zhaojiajiao() {
         this.props.history.push('/teacher')
     }
-    jiazhen(){
+    jiazhen() {
         this.props.history.push('/home')
     }
-    songshui(){
+    songshui() {
         this.props.history.push('/water')
     }
+    weixiu() {
+        this.props.history.push('./repair')
+    }
+
+    showDrawer = () => {
+        this.setState({
+            visible: true,
+        });
+    };
+
+    onClose = () => {
+        this.setState({
+            visible: false,
+        });
+    };
+
+    onChange = e => {
+        this.setState({
+            placement: e.target.value,
+        });
+    };
+
     render() {
         return (
             <div>
                 <div className="header">
+                    <Icon type="unordered-list" className="unordered-list" onClick={this.showDrawer} />
                     <h2>龙山花园</h2>
+                    <div className="header_right">
+                        <span>
+                            <Icon type="environment" />
+                        </span>
+                        <span>{this.state.city}</span>
+                    </div>
                 </div>
                 <div className="top">
-                    <Search className="input1"
+                    <Search className="input11"
                         placeholder="search"
                         onSearch={value => console.log(value)}
                         style={{ width: 200 }}
                     />
-                    <Button type="primary" className="btn1">我要发布</Button>
+                    <Button type="primary" className="btn11">我要发布</Button>
                 </div>
                 {/* <div className="swipe">
                     <Carousel autoplay>
@@ -80,32 +126,61 @@ class Blog extends Component {
                 </div>
                 <div className="nav_box">
                     <ul>
-                        <li onClick={()=>this.zhaojiajiao()}>
-                            <img src={one} alt=""/>
+                        <li onClick={() => this.zhaojiajiao()}>
+                            <img src={one} alt="" />
                             <h5>找家教</h5>
                         </li>
-                        <li onClick={()=>this.songshui()}>
-                            <img src={two} alt=""/>
+                        <li onClick={() => this.songshui()}>
+                            <img src={two} alt="" />
                             <h5>送水到家</h5>
                         </li>
-                        <li>
-                            <img src={three} alt=""/>
+                        <li onClick={() => this.weixiu()}>
+                            <img src={three} alt="" />
                             <h5>维修服务</h5>
                         </li>
-                        <li onClick={()=>this.jiazhen()}>
-                            <img src={four} alt=""/>
+                        <li onClick={() => this.jiazhen()}>
+                            <img src={four} alt="" />
                             <h5>家政</h5>
                         </li>
                         <li>
-                            <img src={five} alt=""/>
+                            <img src={five} alt="" />
                             <h5>社区互动</h5>
                         </li>
                         <li>
-                            <img src={six} alt=""/>
+                            <img src={six} alt="" />
                             <h5>更多服务</h5>
                         </li>
                     </ul>
-                </div>            
+                </div>
+                <RadioGroup
+                    style={{ marginRight: 8 }}
+                    defaultValue={this.state.placement}
+                    onChange={this.onChange}
+                >
+                </RadioGroup>
+                <Drawer
+                    placement={this.state.placement}
+                    closable={false}
+                    onClose={this.onClose}
+                    visible={this.state.visible}
+                >
+                    <div className="side">
+                        <div className="side_left"></div>
+                        <div className="side_right">呵呵哒</div>
+                    </div>
+                    <ul className="side_main">
+                        <li><span>找家教</span></li>
+                        <li><span>找家教</span></li>
+                        <li><span>找家教</span></li>
+                        <li><span>找家教</span></li>
+                        <li><span>找家教</span></li>
+                        <li><span>找家教</span></li>
+                        <li><span>找家教</span></li>
+                        <li><span>找家教</span></li>
+                        <li onClick={()=>this.changpass()}><span>账号设置</span></li>
+                        <li><span>退出登录</span></li>
+                    </ul>
+                </Drawer>
             </div>
         )
     }

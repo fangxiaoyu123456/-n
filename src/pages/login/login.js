@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Icon } from 'antd';
 import './login.css'
 import API from '../../common/js/api' 
+import Back from '../../views/back/back'
+import store from  '../../store/index'
 class Blog extends Component {
     state = {
         user:{
@@ -26,10 +28,14 @@ class Blog extends Component {
         }).then(res=>{
             console.log(res)
             if(res.data.isok){
-                alert('登录成功')
+                alert(res.data.info)
                 this.props.history.push('/index')
+                store.dispatch({
+                    type:"change",
+                    payload:this.state.user.name
+                })
             }else{
-                alert('登录失败')
+                alert(res.data.info)
             }
         }).catch(err=>{
             console.log(err)
@@ -39,7 +45,7 @@ class Blog extends Component {
         return (
             <div>
                 <div className="header">
-                    <Icon type="left" className="left" />
+                    <Back></Back>
                     <span>登录</span>
                 </div>
                 <div className="box1">

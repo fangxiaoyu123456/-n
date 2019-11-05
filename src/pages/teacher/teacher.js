@@ -4,15 +4,13 @@ import { Icon, Button, Input } from 'antd';
 import API from '../../common/js/api'
 import Swipe from '../../views/swipe/swipe'
 import seven from '../../common/img/7.png'
-import eight from '../../common/img/8.png'
-import nine from '../../common/img/9.png'
-import ten from '../../common/img/10.png'
-import eleven from '../../common/img/11.png'
+import Back from '../../views/back/back'
 const { Search } = Input;
 class Blog extends Component {
     state = {
         banner: [],
-        top: []
+        top: [],
+        type: []
     }
     componentDidMount() {
         this.$axios({
@@ -32,21 +30,30 @@ class Blog extends Component {
                 top: res.data.data
             })
         })
+
+        this.$axios({
+            url: API.teacherType
+        }).then(res => {
+            console.log(res)
+            this.setState({
+                type: res.data.data
+            })
+        })
     }
     render() {
         return (
             <div>
                 <div className="header">
-                    <Icon type="left" className="left" />
+                    <Back></Back>
                     <span>找家教</span>
                 </div>
                 <div className="top">
-                    <Search className="input1"
+                    <Search className="input11"
                         placeholder="search"
                         onSearch={value => console.log(value)}
                         style={{ width: 200 }}
                     />
-                    <Button type="primary" className="btn1">我要发布</Button>
+                    <Button type="primary" className="btn11">我要发布</Button>
                 </div>
                 <Swipe item={this.state.banner}></Swipe>
                 <div className="teacher_pic">
@@ -54,7 +61,17 @@ class Blog extends Component {
                 </div>
                 <div className="teacher_nav">
                     <ul>
-                        <li>
+                        {
+                            this.state.type.map(item => {
+                                return (
+                                    <li key={item.id}>
+                                        <img src={item.img} alt="" />
+                                        <h4>{item.type}</h4>
+                                    </li>
+                                )
+                            })
+                        }
+                        {/* <li>
                             <img src={eight} alt="" />
                             <h4>小学</h4>
                         </li>
@@ -69,7 +86,7 @@ class Blog extends Component {
                         <li>
                             <img src={eleven} alt="" />
                             <h4>兴趣</h4>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
                 <div className="line">

@@ -7,36 +7,44 @@ class Blog extends Component {
         this.props.history.go(-1)
     }
     state = {
-        msg : [],
-        comment:[]
+        msg: [],
+        comment: []
     }
-    componentDidMount(){
+    com(){
+        this.props.history.push('/watercomment')
+        localStorage.setItem('waterId',this.state.msg.id)
+    }
+    componentDidMount() {
         // console.log(this.props.match.params.id)
+        //水站
         this.$axios({
-            url:API.findWater,
-            params:{
-                id:this.props.match.params.id
+            url: API.findWater,
+            params: {
+                id: this.props.match.params.id
             }
-        }).then(res=>{
-            // console.log(res)
+        }).then(res => {
+            console.log(res)
             this.setState({
-                msg:res.data.data[0]
+                msg: res.data.data[0]
             })
         })
-
+        //评论
         this.$axios({
-            url:API.findComment,
-            params:{
-                waterId:this.props.match.params.id
+            url: API.findComment,
+            params: {
+                waterId: this.props.match.params.id
             }
-        }).then(res=>{
+        }).then(res => {
             console.log(res)
-            
+            this.setState({
+                comment: res.data.data
+            })
         })
+        //时间
     }
     render() {
         return (
-            <div>
+            <div className="body">
                 <div className="header">
                     <Icon type="left" className="left" onClick={() => this.back()} />
                     <h2>详细</h2>
@@ -63,8 +71,8 @@ class Blog extends Component {
                             <p>{this.state.msg.len}m</p>
                             <p>{this.state.msg.address}</p>
                         </div>
-                        <a href={'tel:'+this.state.msg.tel}><Icon type="phone" className="water_phone" /></a>
-                        
+                        <a href={'tel:' + this.state.msg.tel}><Icon type="phone" className="water_phone" /></a>
+
                     </div>
                     <div className="water_msg">
                         <h2 className="water_msg_title">商家信息</h2>
@@ -76,9 +84,30 @@ class Blog extends Component {
                     <div className="water_comment">
                         <div className="water_comment_title">
                             <div className="water_comment_title_left">TA们都在说</div>
-                            <div className="water_comment_title_right"><Icon type="highlight" className="water_comment_icon" />写评论</div>
+                            <div className="water_comment_title_right" onClick={()=>this.com()}><Icon type="highlight" className="water_comment_icon" />写评论</div>
                         </div>
-                        <div className="waterDetail_list">
+                        {
+                            this.state.comment.map(item => {
+                                return (
+                                    <div className="waterDetail_list" key={item.id}>
+                                        <div className="waterDetail_list_left">
+                                            <div className="waterDetail_list_img">
+                                                <img src={item.ava} alt="" />
+                                            </div>
+                                        </div>
+                                        <div className="waterDetail_list_right">
+                                            <div className="waterDetail_list_right_title">
+                                                <div className="waterDetail_list_right_title_left">{item.name}</div>
+                                                <div className="waterDetail_list_right_title_right" >{item.time}</div>
+                                            </div>
+                                            <p>{item.content}</p>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+
+                        {/* <div className="waterDetail_list">
                             <div className="waterDetail_list_left">
                                 <div className="waterDetail_list_img">
                                     <img src="http://img4.imgtn.bdimg.com/it/u=3277066189,634094919&fm=26&gp=0.jpg" alt=""/>
@@ -91,21 +120,7 @@ class Blog extends Component {
                                 </div>
                                 <p>这家水店服务特别好，送水速度快，水喝着也不错，而且还经济实惠。。。</p>
                             </div>
-                        </div>
-                        <div className="waterDetail_list">
-                            <div className="waterDetail_list_left">
-                                <div className="waterDetail_list_img">
-                                    <img src="http://img4.imgtn.bdimg.com/it/u=3277066189,634094919&fm=26&gp=0.jpg" alt=""/>
-                                </div>
-                            </div>
-                            <div className="waterDetail_list_right">
-                                <div className="waterDetail_list_right_title">
-                                    <div className="waterDetail_list_right_title_left">娃娃脸wq</div>
-                                    <div className="waterDetail_list_right_title_right">1小时前</div>
-                                </div>
-                                <p>这家水店服务特别好，送水速度快，水喝着也不错，而且还经济实惠。。。</p>
-                            </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
 
