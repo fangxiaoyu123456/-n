@@ -79,19 +79,18 @@ class Blog extends Component {
             e.stopPropagation();   //阻止事件传播
         }
     }
-
-    showMask(){
+    showMask(e){
+        e.preventDefault()
         this.setState({
             isShowMask:true
         })
     }
-    hideMask(e){
+    hide(e){
         e.preventDefault()
         this.setState({
             isShowMask:false
         })
     }
-    
     // showDrawer = () => {
     //     this.setState({
     //         visible: true,
@@ -109,15 +108,61 @@ class Blog extends Component {
     //         placement: e.target.value,
     //     });
     // };
-
+    onstartX = 0
+    onendX = 0
+    onstart(e){
+        this.onstartX = e.touches[0].clientX
+        console.log('startX')
+        this.onendX = 0
+    }
+    onmove(e){
+        this.onendX = e.touches[0].clientX
+        console.log('moveX')
+    }
+    onend(e){
+        console.log('endX')
+        console.log(this.onstartX,this.onendX)
+        if(this.onendX>this.onstartX){
+            console.log('右滑')
+            this.setState({
+                isShowMask:true
+            })
+        }
+        if(this.onstartX>this.onendX){
+            console.log('左滑')
+            this.setState({
+                isShowMask:false
+            })
+        }
+        // console.log('11')
+        
+        if(this.onendX == 0 ){   //不等于0就是上滑下滑
+            // e.stopPropagation();   //阻止事件传播
+            console.log(e.target.className)
+            if(e.target.className.indexOf('unordered-list')!=-1){
+                console.log('1')
+                this.setState({
+                    isShowMask:true
+                })
+            }
+            return
+        }
+    }
     render() {
         return (
-            <div>
-                <Mask isShowMask={this.state.isShowMask} hideMask={(e)=>this.hideMask(e)}
-                 changepass={()=>this.changepass()}
+            <div 
+            onTouchStart={(e)=>this.onstart(e)}
+            onTouchMove={(e)=>this.onmove(e)}
+            onTouchEnd={(e)=>this.onend(e)}
+            >
+                <Mask
+                isShowMask={this.state.isShowMask}
+                hide={(e)=>this.hide(e)}
                 ></Mask>
                 <div className="header">
-                    <Icon type="unordered-list" className="unordered-list" onTouchEnd={()=>this.showMask()}  hideMask={(e)=>this.hideMask(e)}/>
+                    <span onTouchEnd={(e)=>this.showMask(e)}  className="unordered-list"></span>
+                    <Icon type="unordered-list" className='heheda' />
+                    
                     <h2>龙山花园</h2>
                     <div className="header_right">
                         <span>

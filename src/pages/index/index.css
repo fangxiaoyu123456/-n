@@ -138,6 +138,15 @@
     position: absolute;
     left: .2rem;
     top: .27rem;
+    z-index: 2;
+    display: block;
+    width: .4rem;
+    height: .4rem;
+}
+.heheda{
+    position: absolute;
+    left: .2rem;
+    top: .27rem;
 }
 .ant-drawer-mask{
     opacity: 0!important;
