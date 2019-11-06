@@ -12,6 +12,18 @@ import './assets/js/rem'
 import 'antd/dist/antd.css';
 //路由
 import {HashRouter} from 'react-router-dom'
+
+axios.interceptors.response.use(res => {
+    console.log('======='+res.config.url+'========')
+    console.log(res)
+    if(res.data.code==-1){
+        window.open('http://localhost:3000/login','_self')
+        res.data.data = []
+        return res
+    }
+    return res
+});
+
 Component.prototype.$axios = axios
 ReactDOM.render(<HashRouter><App /></HashRouter>, document.getElementById('root'));
 

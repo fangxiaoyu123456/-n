@@ -33,7 +33,7 @@ class Blog extends Component {
                 <Route path="/repaircomment" component={Repaircomment}></Route>
                 <Route path="/homecom/:id" component={Homecom}></Route>
                 <Route path="/changepass" component={ChangePass}></Route>
-                <Redirect to="/index" ></Redirect>
+                <Redirect to="/login" ></Redirect>
             </Switch>
         )
     }

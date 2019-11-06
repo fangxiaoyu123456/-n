@@ -9,6 +9,9 @@ import three from '../../common/img/3.jpg'
 import four from '../../common/img/4.jpg'
 import five from '../../common/img/5.jpg'
 import six from '../../common/img/6.jpg'
+import Time from '../../views/time/time'
+import Mask from '../../views/mask/mask'
+import store from '../../store/index'
 const RadioGroup = Radio.Group;
 const { Search } = Input;
 class Blog extends Component {
@@ -16,7 +19,9 @@ class Blog extends Component {
         banner: [],
         city: "",
         visible: false,
-        placement: 'left'
+        placement: 'left',
+        time:"2",
+        isShowMask:false,
     }
     componentDidMount() {
         //轮播图数据
@@ -38,47 +43,81 @@ class Blog extends Component {
             this.setState({
                 city: result.name
             })
-        });
+        })
+        console.log(store.getState().name)
+        console.log('111')
     }
     changpass(){
         this.props.history.push('/changepass')
     }
-    zhaojiajiao() {
-        this.props.history.push('/teacher')
+    toRoute(url){
+        this.props.history.push(url)
     }
-    jiazhen() {
-        this.props.history.push('/home')
+    //touch
+    startY = 0;
+    endY = 0
+    start(e){
+        this.startY = e.touches[0].clientY
+        // console.log('start')
+        this.endY = 0
     }
-    songshui() {
-        this.props.history.push('/water')
+    move(e){
+        this.endY = e.touches[0].clientY
+        // console.log('move')
     }
-    weixiu() {
-        this.props.history.push('./repair')
+    end(e){
+        // console.log('end')
+        // console.log(this.startY,this.endY)
+        if(this.startY>this.endY){
+            console.log('上滑')
+        }
+        if(this.endY>this.startY){
+            console.log('下滑')
+        }
+
+        if(this.endY != 0 ){   //不等于0就是上滑下滑
+            e.stopPropagation();   //阻止事件传播
+        }
     }
 
-    showDrawer = () => {
+    showMask(){
         this.setState({
-            visible: true,
-        });
-    };
+            isShowMask:true
+        })
+    }
+    hideMask(e){
+        e.preventDefault()
+        this.setState({
+            isShowMask:false
+        })
+    }
+    
+    // showDrawer = () => {
+    //     this.setState({
+    //         visible: true,
+    //     });
+    // };
 
-    onClose = () => {
-        this.setState({
-            visible: false,
-        });
-    };
+    // onClose = () => {
+    //     this.setState({
+    //         visible: false,
+    //     });
+    // };
 
-    onChange = e => {
-        this.setState({
-            placement: e.target.value,
-        });
-    };
+    // onChange = e => {
+    //     this.setState({
+    //         placement: e.target.value,
+    //     });
+    // };
 
     render() {
         return (
             <div>
+                <Mask isShowMask={this.state.isShowMask} hideMask={(e)=>this.hideMask(e)}
+                 changepass={()=>this.changepass()}
+                ></Mask>
                 <div className="header">
-                    <Icon type="unordered-list" className="unordered-list" onClick={this.showDrawer} />
+                    <Icon type="unordered-list" className="unordered-list" onTouchEnd={()=>this.showMask()}  hideMask={(e)=>this.hideMask(e)}/>
                     <h2>龙山花园</h2>
                     <div className="header_right">
                         <span>
@@ -93,7 +132,7 @@ class Blog extends Component {
                         onSearch={value => console.log(value)}
                         style={{ width: 200 }}
                     />
-                    <Button type="primary" className="btn11">我要发布</Button>
+                    <Button type="primary" className="btn11" onClick={()=>this.changpass()}>我要发布</Button>
                 </div>
                 {/* <div className="swipe">
                     <Carousel autoplay>
@@ -120,25 +159,31 @@ class Blog extends Component {
                         </p>
                         <p className="p_two">
                             <span className="p_two1">3-4级/4-5级风</span>
-                            <span className="p_two2">18:00</span>
+                            {/* <span className="p_two2">{this.state.time}</span> */}
+                            <Time></Time>
                         </p>
                     </div>
                 </div>
-                <div className="nav_box">
+                {/* 先触发里面，冒到外面     要先触发外面  再出触发里面  需要onTouchStartCapture  加Capture */}
+                <div className="nav_box"
+                    onTouchStartCapture={(e)=>this.start(e)}
+                    onTouchMoveCapture={(e)=>this.move(e)}
+                    onTouchEndCapture={(e)=>this.end(e)}
+                >
                     <ul>
-                        <li onClick={() => this.zhaojiajiao()}>
+                        <li onTouchEndCapture={() => this.toRoute('/teacher')}>
                             <img src={one} alt="" />
                             <h5>找家教</h5>
                         </li>
-                        <li onClick={() => this.songshui()}>
+                        <li onTouchEndCapture={() => this.toRoute('/water')}>
                             <img src={two} alt="" />
                             <h5>送水到家</h5>
                         </li>
-                        <li onClick={() => this.weixiu()}>
+                        <li onTouchEndCapture={() => this.toRoute('repair')}>
                             <img src={three} alt="" />
                             <h5>维修服务</h5>
                         </li>
-                        <li onClick={() => this.jiazhen()}>
+                        <li onTouchEndCapture={() => this.toRoute('/home')}>
                             <img src={four} alt="" />
                             <h5>家政</h5>
                         </li>
@@ -152,7 +197,7 @@ class Blog extends Component {
                         </li>
                     </ul>
                 </div>
-                <RadioGroup
+                {/* <RadioGroup
                     style={{ marginRight: 8 }}
                     defaultValue={this.state.placement}
                     onChange={this.onChange}
@@ -180,7 +225,7 @@ class Blog extends Component {
                         <li onClick={()=>this.changpass()}><span>账号设置</span></li>
                         <li><span>退出登录</span></li>
                     </ul>
-                </Drawer>
+                </Drawer> */}
             </div>
         )
     }

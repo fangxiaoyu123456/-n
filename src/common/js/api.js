@@ -13,6 +13,8 @@ var addRepairComment = '/addRepairComment'
 var findHomeWorker = '/findHomeWorker'
 var teacherType = '/teacherType'
 var changePassUser = "/changePassUser"
+var updateUser = '/updateUser'
+var findUser = '/findUser'
 export default {
     register,
     login,
@@ -28,5 +30,7 @@ export default {
     addRepairComment,
     findHomeWorker,
     teacherType,
-    changePassUser
+    changePassUser,
+    updateUser,
+    findUser
 }
