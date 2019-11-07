@@ -51,6 +51,14 @@ class Blog extends Component {
         //     console.log(res)
         // })
 
+        
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = result => {
+            this.url = result.target.result;
+        };
+
+
         //七牛云把图片变成在线链接上传
         var filename = new Date().getTime() + extname
         this.$axios({

@@ -112,16 +112,16 @@ class Blog extends Component {
     onendX = 0
     onstart(e){
         this.onstartX = e.touches[0].clientX
-        console.log('startX')
+        // console.log('startX')
         this.onendX = 0
     }
     onmove(e){
         this.onendX = e.touches[0].clientX
-        console.log('moveX')
+        // console.log('moveX')
     }
     onend(e){
-        console.log('endX')
-        console.log(this.onstartX,this.onendX)
+        // console.log('endX')
+        // console.log(this.onstartX,this.onendX)
         if(this.onendX>this.onstartX){
             console.log('右滑')
             this.setState({

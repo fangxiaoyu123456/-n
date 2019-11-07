@@ -12,7 +12,7 @@ import './assets/js/rem'
 import 'antd/dist/antd.css';
 //路由
 import {HashRouter} from 'react-router-dom'
-
+import {BrowserRouter} from 'react-router-dom'
 axios.interceptors.response.use(res => {
     console.log('======='+res.config.url+'========')
     console.log(res)
@@ -31,3 +31,11 @@ ReactDOM.render(<HashRouter><App /></HashRouter>, document.getElementById('root'
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+
+// var file = e.target.files[0];
+// var reader = new FileReader();
+// reader.readAsDataURL(file);
+// reader.onload = result => {
+// this.url = result.target.result;
+// };
